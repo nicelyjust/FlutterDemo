@@ -1,67 +1,100 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+void main() => runApp(MaterialApp(
+      title: "My app",
+      home: TutorialHome(),
+    ));
+/// 脚手架内置了app的一些基本组件,当然可以自己实现
+class MyScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
+    return Material(
+      ///列组件
+      child: Column(
+        children: <Widget>[
+          MyAppBar(
+            title: Text(
+              "Example title",
+              style: Theme.of(context).primaryTextTheme.title,
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text("Hello world"),
+            ),
+          )
+        ],
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class MyAppBar extends StatelessWidget {
+  final Widget title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Widget build(BuildContext context) {
+    return Container(
+      height: 56.0,
+      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      decoration: BoxDecoration(color: Colors.blue),
+      /// 行组件
+      child: Row(
+        children: <Widget>[
+          IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: null
+          ),
+          Expanded(
+              child: title
+          ),
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: null
+          )
+        ],
+      ),
+    );
   }
 
+  MyAppBar({@required this.title});
+}
+
+class TutorialHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-            child: Text(widget.title)
+        leading: IconButton(
+            icon: Icon(Icons.menu),
+            tooltip: 'Navigation menu',
+            onPressed: nullFunc,
         ),
+        title: Text("Example title"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              tooltip: "Search",
+              onPressed: nullFunc,
+          ),
+          IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: nullFunc,
+          )
+        ],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[//列表
-            Text(
-              'You have pushed the button this many times:$_counter',
-            ),
-            Text(
-              '嘿嘿额',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+        child: Text("Hello world"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-      bottomNavigationBar: new BottomNavigationBar(items: <BottomNavigationBarItem>[BottomNavigationBarItem(icon: Icon(Icons.add_to_queue),title:Text("Mandy")),BottomNavigationBarItem(icon: Icon(Icons.accessibility),title: Text("Nicely"))]),
+          child: Icon(Icons.add),
+          tooltip: "add",
+          onPressed: nullFunc,
+      ),
     );
+  }
+
+
+  void nullFunc() {
   }
 }
