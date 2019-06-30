@@ -87,9 +87,15 @@ class TutorialHome extends StatelessWidget{
         child: Text("Hello world"),
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          tooltip: "add",
-          onPressed: nullFunc,
+        child: Icon(Icons.add),
+        tooltip: "add",
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) {
+                return SearchRoute();
+              })
+          );
+        },
       ),
     );
   }
@@ -97,4 +103,19 @@ class TutorialHome extends StatelessWidget{
 
   void nullFunc() {
   }
+}
+
+class SearchRoute extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("second page title"),
+      ),
+      body: Center(
+        child: Text("second page body"),
+      ),
+    );
+  }
+
 }
