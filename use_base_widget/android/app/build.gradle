@@ -1,3 +1,4 @@
+def isLib = true
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -21,9 +22,13 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+if (isLib){
+    apply plugin: 'com.android.library'
+}else{
+    apply plugin: 'com.android.application'
+}
 
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     compileSdkVersion 28
 
@@ -32,13 +37,20 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.use_base_widget"
-        minSdkVersion 16
+        if (!isLib){
+            applicationId "com.example.use_base_widget"
+        }
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        if (isLib){
+            ndk{
+                //设置支持的SO库架构
+                abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+            }
+        }
     }
 
     buildTypes {
