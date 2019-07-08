@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Second.dart';
+
 void main() => runApp(MaterialApp(
       title: "My app",
       home: TutorialHome(),
@@ -63,6 +65,57 @@ class MyAppBar extends StatelessWidget {
 class TutorialHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    Widget titleSection = Container(
+      padding: const EdgeInsets.only(left: 32,right: 32,top: 20,bottom: 20),
+      child: Row(
+        children: <Widget>[
+          Expanded(child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Oeschinen Lake Campground",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 4),
+                child: Text(
+                  "Kandersteg, Switzerland",
+                  style: TextStyle(fontWeight: FontWeight.normal,
+                      color: Colors.grey[500]),
+                ),
+              ),
+            ],
+          ),
+          ),
+          Icon(Icons.star,color: Colors.red[500],),
+          Text("41"),
+        ],
+      ),
+    );
+
+    Color color = Theme.of(context).primaryColor;
+    Widget btnSec = Row(
+      mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
+      children: <Widget>[
+        _buildIconButton(color, Icons.call, 'CALL'),
+        _buildIconButton(color, Icons.near_me, 'ROUTE'),
+        _buildIconButton(color, Icons.share, 'SHARE'),
+
+      ],
+    );
+
+    Widget txtSec = Container(
+      padding: EdgeInsets.only(left: 32,right: 32,top: 20,bottom: 20),
+      child: Text(
+        'Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese '
+            'Alps. Situated 1,578 meters above sea level, it is one of the '
+            'larger Alpine Lakes. A gondola ride from Kandersteg, followed by a '
+            'half-hour walk through pastures and pine forest, leads you to the '
+            'lake, which warms to 20 degrees Celsius in the summer. Activities '
+            'enjoyed here include rowing, and riding the summer toboggan run.',
+        softWrap: true,
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -83,8 +136,18 @@ class TutorialHome extends StatelessWidget{
           )
         ],
       ),
-      body: Center(
-        child: Text("Hello world"),
+      body: Column(
+        children: <Widget>[
+          Image.asset(
+            "static/images/lake.jpg",
+            width: 600,
+            height: 240,
+            fit: BoxFit.cover,
+          ),
+          titleSection,
+          btnSec,
+          txtSec,
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -105,17 +168,27 @@ class TutorialHome extends StatelessWidget{
   }
 }
 
-class SearchRoute extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("second page title"),
+Column _buildIconButton(Color color, IconData icon, String name) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Icon(icon, color: color),
+      Container(
+        margin: EdgeInsets.only(top: 8),
+        child: Text(
+          name,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: color,
+          ),
+        ),
       ),
-      body: Center(
-        child: Text("second page body"),
-      ),
-    );
-  }
 
+    ],
+  );
 }
+
+
+
