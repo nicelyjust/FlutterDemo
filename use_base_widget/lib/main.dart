@@ -116,20 +116,42 @@ class TutorialHome extends StatelessWidget{
         softWrap: true,
       ),
     );
+
+    SnackBar snackBar = SnackBar(
+      content: Text(
+          "Yay! A SnackBar"
+      ),
+      action: SnackBarAction(
+          label: "I'm a label ",
+          onPressed: () {
+            //do something
+          }
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        /*Builder(builder: (BuildContext context){
+          return IconButton(
             icon: Icon(Icons.menu),
-            tooltip: 'Navigation menu',
-            onPressed: nullFunc,
-        ),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          );
+        })*/
+        leading: null,
         title: Text("Example title"),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              tooltip: "Search",
-              onPressed: nullFunc,
-          ),
+          Builder(builder: (BuildContext context){
+            return IconButton(
+              icon: Icon(Icons.add_alert),
+              onPressed: () {
+                Scaffold.of(context).showSnackBar(snackBar);
+              },
+              tooltip: MaterialLocalizations.of(context).alertDialogLabel,
+            );
+          }),
           IconButton(
               icon: Icon(Icons.settings),
               onPressed: nullFunc,
@@ -148,6 +170,41 @@ class TutorialHome extends StatelessWidget{
           btnSec,
           txtSec,
         ],
+      ),
+      drawer: Drawer(
+
+        child: ListView(
+          ///不加这个,状态栏显示有问题
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: new Center(
+                child: SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: CircleAvatar(
+                    child: Text("L"),
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.blue
+              ),
+            ),
+            ListTile(
+              title: Text("item1"),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text("item2"),
+              onTap: (){
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
