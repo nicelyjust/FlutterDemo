@@ -66,7 +66,7 @@ class TutorialHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
-      padding: const EdgeInsets.only(left: 32,right: 32,top: 20,bottom: 20),
+      padding: const EdgeInsets.all(32),
       child: Row(
         children: <Widget>[
           Expanded(child: Column(
@@ -77,7 +77,7 @@ class TutorialHome extends StatelessWidget{
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Container(
-                margin: EdgeInsets.only(top: 4),
+                margin: EdgeInsets.only(top: 8),
                 child: Text(
                   "Kandersteg, Switzerland",
                   style: TextStyle(fontWeight: FontWeight.normal,
@@ -87,8 +87,7 @@ class TutorialHome extends StatelessWidget{
             ],
           ),
           ),
-          Icon(Icons.star,color: Colors.red[500],),
-          Text("41"),
+          FavoriteWidget()
         ],
       ),
     );
@@ -105,7 +104,7 @@ class TutorialHome extends StatelessWidget{
     );
 
     Widget txtSec = Container(
-      padding: EdgeInsets.only(left: 32,right: 32,top: 20,bottom: 20),
+      padding: EdgeInsets.all(32),
       child: Text(
         'Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese '
             'Alps. Situated 1,578 meters above sea level, it is one of the '
@@ -158,13 +157,16 @@ class TutorialHome extends StatelessWidget{
           )
         ],
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
-          Image.asset(
-            "static/images/lake.jpg",
-            width: 600,
-            height: 240,
-            fit: BoxFit.cover,
+          Container(
+            /*height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,*/
+            width: 200,
+            child: Image.asset(
+              "static/images/lake.jpg",
+              fit: BoxFit.cover,
+            ),
           ),
           titleSection,
           btnSec,
@@ -223,7 +225,48 @@ class TutorialHome extends StatelessWidget{
   void nullFunc() {
   }
 }
+class FavoriteWidget extends StatefulWidget{
+  @override
+  _FavoriteWidgetState createState() {
+    return _FavoriteWidgetState();
+  }
 
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget>{
+  bool _isFavorited = true;
+  int _favoriteCount = 41;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(0),
+          child: IconButton(
+            icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+            color: Colors.red[500],
+            onPressed: _toggleFavorite,
+          ),
+        ),
+      Text("$_favoriteCount"),
+
+    ],
+    );
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      if(_isFavorited){
+        _favoriteCount--;
+        _isFavorited = false;
+      } else {
+        _favoriteCount++;
+        _isFavorited = true;
+      }
+    });
+  }
+}
 Column _buildIconButton(Color color, IconData icon, String name) {
   return Column(
     mainAxisSize: MainAxisSize.min,
