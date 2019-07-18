@@ -172,7 +172,6 @@ class TutorialHome extends StatelessWidget{
         ],
       ),
       drawer: Drawer(
-
         child: ListView(
           ///不加这个,状态栏显示有问题
           padding: EdgeInsets.zero,
