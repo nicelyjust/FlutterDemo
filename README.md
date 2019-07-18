@@ -1,4 +1,4 @@
-# use_base_widget
+# Flutter demo
 
 A new Flutter project,to learn how to develop Flutter app
 
