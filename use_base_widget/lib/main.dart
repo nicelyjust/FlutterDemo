@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:use_base_widget/screens/Splash.dart';
 
 import 'Second.dart';
 
-void main() => runApp(MaterialApp(
+void main() =>
+    runApp(MaterialApp(
       title: "My app",
-      home: TutorialHome(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => Splash(),
+        "/main": (context) => TutorialHome(),
+      },
     ));
 /// 脚手架内置了app的一些基本组件,当然可以自己实现
 class MyScaffold extends StatelessWidget {
@@ -225,6 +231,7 @@ class TutorialHome extends StatelessWidget{
   void nullFunc() {
   }
 }
+
 class FavoriteWidget extends StatefulWidget{
   @override
   _FavoriteWidgetState createState() {
@@ -267,6 +274,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget>{
     });
   }
 }
+
 Column _buildIconButton(Color color, IconData icon, String name) {
   return Column(
     mainAxisSize: MainAxisSize.min,
