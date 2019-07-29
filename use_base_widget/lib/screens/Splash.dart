@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Splash extends StatelessWidget{
+class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = new TextStyle(
-        fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.bold,
       fontSize: 40,
     );
 
@@ -15,20 +15,21 @@ class Splash extends StatelessWidget{
         children: <Widget>[
           Center(
               child: Text(
-                  "first ",
+                "first ",
                 style: textStyle,
               )
           ),
           Center(
             child: Text(
-                "second ",
+              "second ",
               style: textStyle,
             ),
           ),
           Center(
             child: Column(
               children: <Widget>[
-                Text("third ",
+                Text(
+                  "third ",
                   style: textStyle,
                 ),
                 IconButton(
@@ -45,5 +46,4 @@ class Splash extends StatelessWidget{
       ),
     );
   }
-
 }
