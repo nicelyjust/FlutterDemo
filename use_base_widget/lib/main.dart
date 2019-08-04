@@ -163,20 +163,29 @@ class TutorialHome extends StatelessWidget{
           )
         ],
       ),
-      body: ListView(
+      body: PageView(
+        //controller: PageController(),
         children: <Widget>[
-          Container(
-            /*height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,*/
-            width: 200,
-            child: Image.asset(
-              "static/images/lake.jpg",
-              fit: BoxFit.cover,
-            ),
+          ListView(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  "static/images/lake.jpg",
+                  fit: BoxFit.cover,
+                ),
+              ),
+              titleSection,
+              btnSec,
+              txtSec,
+            ],
           ),
-          titleSection,
-          btnSec,
-          txtSec,
+          Center(
+            child: Text("2"),
+          ),
+          Center(
+            child: Text("3"),
+          ),
         ],
       ),
       drawer: Drawer(
@@ -213,6 +222,7 @@ class TutorialHome extends StatelessWidget{
           ],
         ),
       ),
+      bottomNavigationBar: MyBottomNavigation(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         tooltip: "add",
@@ -227,11 +237,41 @@ class TutorialHome extends StatelessWidget{
     );
   }
 
+  void nullFunc() {}
+}
 
-  void nullFunc() {
+class MyBottomNavigation extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyBottomNavigationState();
   }
 }
 
+class MyBottomNavigationState extends State<MyBottomNavigation>{
+  int _currentIndex= 0;
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return BottomNavigationBar(
+      items: [
+        _getBottomBarItem(Icons.home, "HOME",color),
+        _getBottomBarItem(Icons.work, "TODO",color),
+        _getBottomBarItem(Icons.supervised_user_circle, "MINE",color),
+      ],
+      currentIndex: _currentIndex,
+      onTap: (int index) {
+        setState(() {
+          if (_currentIndex != index)
+            _currentIndex = index;
+        });
+      },
+    );
+  }
+
+  _getBottomBarItem(IconData home, String desc, Color color) {
+    return BottomNavigationBarItem(icon: Icon(home,color: color), title: Text(desc));
+  }
+}
 class FavoriteWidget extends StatefulWidget{
   @override
   _FavoriteWidgetState createState() {
