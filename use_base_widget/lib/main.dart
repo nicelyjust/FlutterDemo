@@ -68,7 +68,13 @@ class MyAppBar extends StatelessWidget {
   MyAppBar({@required this.title});
 }
 
-class TutorialHome extends StatelessWidget{
+class TutorialHome extends StatefulWidget{
+  @override
+  TutorialHomeState createState() {
+    return TutorialHomeState();
+  }
+}
+class TutorialHomeState extends State<TutorialHome>{
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -134,6 +140,7 @@ class TutorialHome extends StatelessWidget{
       ),
     );
 
+    var pageController = PageController(initialPage: 0);
     return Scaffold(
       appBar: AppBar(
         /*Builder(builder: (BuildContext context){
@@ -158,13 +165,16 @@ class TutorialHome extends StatelessWidget{
             );
           }),
           IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: nullFunc,
+            icon: Icon(Icons.settings),
+            onPressed: nullFunc,
           )
         ],
       ),
       body: PageView(
-        //controller: PageController(),
+        controller: pageController,
+        onPageChanged: (int index){
+
+        },
         children: <Widget>[
           ListView(
             children: <Widget>[
@@ -238,8 +248,8 @@ class TutorialHome extends StatelessWidget{
   }
 
   void nullFunc() {}
-}
 
+}
 class MyBottomNavigation extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
