@@ -74,7 +74,8 @@ class TutorialHome extends StatefulWidget{
     return TutorialHomeState();
   }
 }
-class TutorialHomeState extends State<TutorialHome>{
+class TutorialHomeState extends State<TutorialHome> with WidgetsBindingObserver{
+
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -232,7 +233,7 @@ class TutorialHomeState extends State<TutorialHome>{
           ],
         ),
       ),
-      bottomNavigationBar: MyBottomNavigation(),
+      bottomNavigationBar: MyBottomNavigation(pageController),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         tooltip: "add",
@@ -249,16 +250,57 @@ class TutorialHomeState extends State<TutorialHome>{
 
   void nullFunc() {}
 
+  @override
+  void initState() {
+
+  }
+
+  @override
+  void didChangeDependencies() {
+
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+  }
+
+  @override
+  void didUpdateWidget(TutorialHome oldWidget) {
+
+  }
+
+  @override
+  Future<bool> didPushRoute(String route) {
+
+  }
+
+  @override
+  void dispose() {
+
+  }
+
+  @override
+  Future<bool> didPopRoute() {
+
+  }
+
+
 }
 class MyBottomNavigation extends StatefulWidget {
+  PageController pageController;
+  MyBottomNavigation(this.pageController);
+
   @override
   State<StatefulWidget> createState() {
-    return MyBottomNavigationState();
+    return MyBottomNavigationState(pageController);
   }
 }
 
 class MyBottomNavigationState extends State<MyBottomNavigation>{
   int _currentIndex= 0;
+  PageController pageController;
+  MyBottomNavigationState(this.pageController):super();
   @override
   Widget build(BuildContext context) {
     Color color = Theme.of(context).primaryColor;
@@ -274,18 +316,25 @@ class MyBottomNavigationState extends State<MyBottomNavigation>{
           if (_currentIndex != index)
             _currentIndex = index;
         });
+        pageController.jumpToPage(index);
+
       },
     );
   }
 
   _getBottomBarItem(IconData home, String desc, Color color) {
-    return BottomNavigationBarItem(icon: Icon(home,color: color), title: Text(desc));
+    return BottomNavigationBarItem(
+        icon: Icon(home),
+        title: Text(desc),
+        activeIcon: Icon(home,color: color),
+    );
   }
 }
 class FavoriteWidget extends StatefulWidget{
   @override
   _FavoriteWidgetState createState() {
-    return _FavoriteWidgetState();
+    var favoriteWidgetState = _FavoriteWidgetState();
+    return favoriteWidgetState;
   }
 
 }

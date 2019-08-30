@@ -36,7 +36,7 @@ class Splash extends StatelessWidget {
                   padding: EdgeInsets.only(top: 30),
                   icon: Icon(Icons.navigate_next),
                   onPressed: () {
-                    Navigator.pushNamed(context, "/main");
+                    Navigator.popAndPushNamed(context, "/main");
                   },
                 ),
               ],
